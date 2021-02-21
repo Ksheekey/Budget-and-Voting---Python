@@ -1,7 +1,11 @@
+#imports
 import os
 import csv
+
+#join current path
 election_csv = os.path.join("Resources", "election_data.csv")
 
+#Initiating list variables
 tot_votes = []
 totalVotes = []
 candidates = []
@@ -14,6 +18,7 @@ correy_perc = 0
 li_perc = 0
 otooley_perc = 0
 
+#finding total votes
 with open(election_csv) as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=',')
     csv_header = next(csvfile)
@@ -27,6 +32,7 @@ with open(election_csv) as csvfile:
     print(f"Total Votes: {totalVotes}")
     print(f"-----------------------")
     
+#Finding vote amounts and percentages
 with open(election_csv) as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=',')
     for row in csv_reader:
@@ -51,6 +57,7 @@ with open(election_csv) as csvfile:
     print(f"O'Tooley: {otooley_perc}% ({otooley_vote})")
     print(f"-----------------------")
 
+#if statements to see who won
     if khan_vote > correy_vote and li_vote and otooley_vote:
         print(f"Winner: Khan")
     if correy_vote > khan_vote and li_vote and otooley_vote:
@@ -63,12 +70,12 @@ with open(election_csv) as csvfile:
     print(f"-----------------------")
     print(f"")
 
-
+#output file
 output_file = os.path.join("Analysis", "E-Lection.csv")
 with open(output_file, "w", newline='') as writefile:
     writer = csv.writer(writefile)
     writer.writerow(['Candidates', 'Percentage', 'Total Vote'])
-    writer.writerow(['Khan', '63.0', '2218231'])
-    writer.writerow(['Correy', '20.0', '704200'])
-    writer.writerow(['Li', '14.0', '492940'])
-    writer.writerow(['OTooley', '3.0', '105630'])
+    writer.writerow(['Khan', str(khan_perc), str(khan_vote)])
+    writer.writerow(['Correy', str(correy_perc), str(correy_vote)])
+    writer.writerow(['Li', str(li_perc), str(li_vote)])
+    writer.writerow(['OTooley', str(otooley_perc), str(otooley_vote)])
